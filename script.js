@@ -1,5 +1,13 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 // --- HTML要素の取得 ---
 const usernameInput = document.getElementById('usernameInput');
 const searchButton = document.getElementById('searchButton');
@@ -16,33 +24,35 @@ searchButton.addEventListener('click', () => {
     }
 });
 // --- メインの非同期関数 ---
-async function fetchUserProfile(username) {
-    // 検索開始時にローダーを表示し、前の結果をクリア
-    loader.style.display = 'block';
-    profileCard.innerHTML = '';
-    try {
-        // ユーザー情報とリポジトリ情報を同時に（並行して）取得
-        const [userResponse, repoResponse] = await Promise.all([
-            fetch(`https://api.github.com/users/${username}`),
-            fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
-        ]);
-        if (!userResponse.ok) {
-            throw new Error('ユーザーが見つかりませんでした。');
+function fetchUserProfile(username) {
+    return __awaiter(this, void 0, void 0, function* () {
+        // 検索開始時にローダーを表示し、前の結果をクリア
+        loader.style.display = 'block';
+        profileCard.innerHTML = '';
+        try {
+            // ユーザー情報とリポジトリ情報を同時に（並行して）取得
+            const [userResponse, repoResponse] = yield Promise.all([
+                fetch(`https://api.github.com/users/${username}`),
+                fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
+            ]);
+            if (!userResponse.ok) {
+                throw new Error('ユーザーが見つかりませんでした。');
+            }
+            const userData = yield userResponse.json();
+            const repoData = repoResponse.ok ? yield repoResponse.json() : [];
+            // 取得したデータでプロフィールカードを表示
+            displayProfile(userData, repoData);
         }
-        const userData = await userResponse.json();
-        const repoData = repoResponse.ok ? await repoResponse.json() : [];
-        // 取得したデータでプロフィールカードを表示
-        displayProfile(userData, repoData);
-    }
-    catch (error) {
-        if (error instanceof Error) {
-            profileCard.innerHTML = `<p style="color: red;">エラー: ${error.message}</p>`;
+        catch (error) {
+            if (error instanceof Error) {
+                profileCard.innerHTML = `<p style="color: red;">エラー: ${error.message}</p>`;
+            }
         }
-    }
-    finally {
-        // 成功・失敗にかかわらず、最後にローダーを非表示にする
-        loader.style.display = 'none';
-    }
+        finally {
+            // 成功・失敗にかかわらず、最後にローダーを非表示にする
+            loader.style.display = 'none';
+        }
+    });
 }
 // --- 表示用関数 ---
 function displayProfile(user, repos) {
@@ -100,4 +110,3 @@ function displayProfile(user, repos) {
     `;
     profileCard.innerHTML = cardHTML;
 }
-//# sourceMappingURL=script.js.map
