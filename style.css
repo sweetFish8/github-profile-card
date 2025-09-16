@@ -1,0 +1,182 @@
+/* Google Fontsから'Poppins'をインポート */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1D2B64, #F8CDDA);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #F0F0F0;
+}
+
+.container {
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+}
+
+h1 {
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.search-box {
+    margin: 25px 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#usernameInput {
+    padding: 12px 15px;
+    width: 60%;
+    border: none;
+    border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 16px;
+}
+
+#usernameInput::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+#searchButton {
+    padding: 12px 25px;
+    border: none;
+    background-color: #F8CDDA;
+    color: #1D2B64;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: transform 0.2s ease;
+}
+
+#searchButton:hover {
+    transform: scale(1.05);
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: left;
+    opacity: 0;
+    animation: fadeIn 0.8s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-header img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #F8CDDA;
+}
+
+.profile-header .info h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.profile-header .info p {
+    margin: 5px 0 0;
+    opacity: 0.8;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat .value {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.stat .label {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.profile-details p {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-details i {
+    width: 20px;
+    text-align: center;
+}
+
+.repos h3 {
+    margin-top: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 10px;
+}
+
+.repo-list a {
+    display: block;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    color: #F0F0F0;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.repo-list a:hover {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.repo-list .repo-stats {
+    float: right;
+}
+
+.loader {
+    border: 6px solid rgba(255, 255, 255, 0.3);
+    border-top: 6px solid #F8CDDA;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
