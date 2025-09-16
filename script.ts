@@ -75,7 +75,12 @@ function displayProfile(user: UserData, repos: RepoData[]) {
             <div class="profile-header">
                 <img src="${user.avatar_url}" alt="プロフィール画像">
                 <div class="info">
-                    <h2>${user.name || user.login}</h2>
+
+                    <h2>
+                    <a href="${user.html_url}" target="_blank" class="profile-link">
+                        ${user.name || user.login}
+                    </a>
+                    </h2>
                     <p>@${user.login}</p>
                 </div>
             </div>
